@@ -1,0 +1,51 @@
+type Query {
+    companies: [Company]
+    applicants: [Applicant]
+}
+
+type Company {
+    id: ID
+    name: String
+}
+
+
+
+
+
+type Applicant { applicantId: Int
+    candidateId: Int
+    jobRequistionNumber: String
+    firstName: String
+    lastName: String
+    email: String
+    atsStatusId: Int
+    applicationDate: String
+    statusDate: String
+    applicantOwner: Int
+    dateOfJoining: String
+    isEuropeanNationalist: Int
+    isSubscribeEmail: Int
+    isSubscribeSms: Int
+    isConsentGiven: Int
+    emailUnsubscribe: Int
+    noticePeriod: Int
+    dob: String
+    resumeSource: String
+    resumeSubSource: String
+    offerSentDate: String
+    hrStatusDate: String
+    hiringManagerId: String
+    createdBy: Int
+    createdDate: String
+    updatedBy: Int
+    updatedDate: String
+    company: String
+    createdRole: String
+    status: String
+    address: String
+    isAddressConfirmed: String
+    interviewRound: String
+    interviewStatusId: String
+    isEmailUnsubscribe: String
+    eventName: String
+}

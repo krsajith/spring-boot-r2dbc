@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation)
+See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="180 seconds">
+	<logger name="org.hibernate" level="ERROR"/>
+	<logger name="com.hyreo.service.sql.EntityRowMapper" level="ERROR"/>
+	<logger name="com.zaxxer.hikari.pool.HikariPool" level="OFF"/>
+	<logger name="io.r2dbc.postgresql.client.ReactorNettyClient" level="OFF"/>
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread][%X{user}] %-5level %logger{5} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.root}/crm_application_all.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+			<!-- daily rollover -->
+	      <fileNamePattern>${application.log.root}/application_all.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 20MB -->
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+
+	      <!-- keep 30 days' worth of history -->
+	      <maxHistory>30</maxHistory>
+	    </rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread][%X{user}] %-5level %logger{36} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+
+
+	<appender name="PERF" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.root}/application_performance.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	      <!-- daily rollover -->
+	      <fileNamePattern>${application.log.root}/application_performance.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 200MB -->
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+
+	      <!-- keep 30 days' worth of history -->
+	      <maxHistory>30</maxHistory>
+	    </rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread][%X{user}] - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- By default, the level of the root level is set to DEBUG -->
+
+	<logger name="com.ust.application" level="DEBUG" additivity="false">
+    	<appender-ref ref="FILE" />
+    	<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.springframework" level="INFO" additivity="false">
+    	<appender-ref ref="FILE" />
+	</logger>
+
+	<!-- <logger name="org.springframework.aop.interceptor" level="TRACE" additivity="false">
+		<appender-ref ref="PERF" />
+	</logger> -->
+
+	<root level="DEBUG">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
