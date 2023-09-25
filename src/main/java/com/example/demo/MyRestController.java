@@ -2,11 +2,13 @@ package com.example.demo;
 
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.MediaType;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
@@ -43,6 +45,10 @@ public class MyRestController {
 //                .buffer(100);
     }
 
+    @MutationMapping
+    public Mono<Applicant> updateApplicant(@RequestBody Applicant applicant){
+        return this.applicantRepository.save(applicant);
+    }
 
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)

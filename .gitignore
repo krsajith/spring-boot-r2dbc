@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+application.log.root_IS_UNDEFINED/**
