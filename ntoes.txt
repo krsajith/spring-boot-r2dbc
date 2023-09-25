@@ -9,3 +9,7 @@ https://github.com/krsajith/poc
 
 /media/sajith/92164773164756FF/backup/learning/angular-postcss/src/app/table/table.component.ts
 /media/sajith/92164773164756FF/backup/learning/learning/angular-postcss/src/app/table/table.component.ts
+
+
+~/learning/angular-postcss
+
